@@ -1,6 +1,6 @@
 const express = require("express")
 const path = require("path")
-const { setHeaders } = require("./middlewares/headers")
+const  setHeaders  = require("./middlewares/headers")
 const app = express()
 
 //bodyParser
