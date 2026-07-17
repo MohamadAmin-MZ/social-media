@@ -27,6 +27,11 @@ const register = async (req, res) => {
     }
 }
 
+const renderRegisterPage = async (req, res) => {
+    return res.render("../views/Pages/Auth/Register/register")
+}
+
 module.exports = {
     register,
+    renderRegisterPage
 }

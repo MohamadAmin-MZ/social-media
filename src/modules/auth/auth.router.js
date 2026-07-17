@@ -6,6 +6,8 @@ const validationResult = require("../../middlewares/validationResult")
 
 const router = express.Router()
 
+
 router.post("/register", validationResult(authValidatoin.registerSchema), authcontroller.register)
+router.get("/register", authcontroller.renderRegisterPage)
 
 module.exports = router
