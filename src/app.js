@@ -1,5 +1,7 @@
 const express = require("express")
 const path = require("path")
+const session = require("express-session");
+const flash = require("express-flash");
 const setHeaders = require("./middlewares/headers")
 const authRouter = require("./modules/auth/auth.router")
 const app = express()
@@ -11,6 +13,16 @@ app.use(express.json({ limit: "50mb" }))
 //cors Policy
 app.use(setHeaders)
 
+//express flash
+app.use(
+    session({
+        secret: "SESSION_SECRET",
+        resave: false,
+        saveUninitialized: false
+    })
+);
+
+app.use(flash());
 
 // Static Folders
 app.use(express.static(path.join(__dirname, "..", "public")))
@@ -28,7 +40,7 @@ app.use("/postUpload", (req, res) => { return res.render("Pages/PostUpload/postU
 app.use("/profile", (req, res) => { return res.render("Pages/Profiles/profile") })
 app.use("/profileUpdate", (req, res) => { return res.render("Pages/ProfileUpdate/profileUpdate") })
 app.use("/auth", authRouter)
-app.use("/", (req, res) => { return res.render("index") })
+app.use("/home", (req, res) => { return res.render("index") })
 
 
 

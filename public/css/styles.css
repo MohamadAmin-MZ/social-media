@@ -909,3 +909,7 @@ textarea {
     object-fit: cover;
     border-radius: 4px;
 }
+
+.error-message{
+    color: red;
+}

@@ -8,7 +8,11 @@ const register = async (req, res) => {
 
         const isUserExisted = await userModel.findOne({ $or: [{ email }, { username }] })
         if (isUserExisted) {
-            return errorResponse(res, 400, isUserExisted, "Email or username already existed.")
+
+            req.flash("error", "Email or username already existed.")
+            return res.redirect(req.get("Referer"));
+
+            // return errorResponse(res, 400, isUserExisted, "Email or username already existed.")
         }
 
         const isFirstUser = (await userModel.countDocuments()) === 0
@@ -19,11 +23,13 @@ const register = async (req, res) => {
 
         const user = await userModel.create({ email, username, name, password, role })
 
-        return successResponse(res, 201, user)
+        req.flash("success", "you was sign up successed👍.")
+        return res.redirect(req.get("Referer"));
+
+        // return successResponse(res, 201, user)
 
     } catch (error) {
-        console.log(error);
-        next(error)
+        return console.log(error);
     }
 }
 
